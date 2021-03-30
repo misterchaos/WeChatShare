@@ -311,7 +311,7 @@ class WeChatShare_Plugin  implements Typecho_Plugin_Interface
                       })
                       wx.updateAppMessageShareData({
                         title: config.title,// 分享标题
-                        desc: '', // 分享描述
+                        desc: config.desc, // 分享描述
                         link: config.link, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
                         imgUrl: config.imgUrl, // 分享图标
                         success: function () {
@@ -320,7 +320,7 @@ class WeChatShare_Plugin  implements Typecho_Plugin_Interface
                       })
                       wx.onMenuShareAppMessage({
                         title: config.title,// 分享标题
-                        desc: '', // 分享描述
+                        desc: config.desc, // 分享描述
                         link: config.link, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
                         imgUrl: config.imgUrl, // 分享图标
                         success: function () {
