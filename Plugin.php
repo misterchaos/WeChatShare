@@ -167,10 +167,11 @@ class WeChatShare_Plugin  implements Typecho_Plugin_Interface
 
             });
             $("#btn-submit").click(function () {
+                console.log("提交微信分享")
                 var wx_data =  $("#wx_share").serialize();
                 $.post("<?php echo $wx_action_url;?>", wx_data,success,"");
                 function  success(data){
-                    //console.log(data); 
+                    console.log(data); 
                 } 
             });
         </script>
@@ -281,7 +282,8 @@ class WeChatShare_Plugin  implements Typecho_Plugin_Interface
                       wx = window.wx;
                     }
                     var conf = data.WXconfig;
-                    wx.config({ debug: false, appId: conf.appId, timestamp: conf.timestamp, nonceStr: conf.nonceStr, signature: conf.signature, jsApiList: ["updateTimelineShareData", "updateAppMessageShareData"] });
+                    wx.config({ debug: false, appId: conf.appId, timestamp: conf.timestamp, nonceStr: conf.nonceStr, signature: conf.signature, 
+                        jsApiList: ["onMenuShareTimeline","onMenuShareAppMessage","updateTimelineShareData", "updateAppMessageShareData"] });
                     wx.error(function (res) {
                     });
                     wx.ready(function () {
@@ -299,7 +301,24 @@ class WeChatShare_Plugin  implements Typecho_Plugin_Interface
                           // 设置成功
                         }
                       })
+                      wx.onMenuShareTimeline({
+                        title: config.title, // 分享标题
+                        link: config.link, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+                        imgUrl: config.imgUrl, // 分享图标
+                        success: function () {
+                          // 设置成功
+                        }
+                      })
                       wx.updateAppMessageShareData({
+                        title: config.title,// 分享标题
+                        desc: '', // 分享描述
+                        link: config.link, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+                        imgUrl: config.imgUrl, // 分享图标
+                        success: function () {
+                          // 设置成功
+                        }
+                      })
+                      wx.onMenuShareAppMessage({
                         title: config.title,// 分享标题
                         desc: '', // 分享描述
                         link: config.link, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
