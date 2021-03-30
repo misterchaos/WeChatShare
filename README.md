@@ -2,7 +2,7 @@
 
 ## Overview
 
-本插件来源于：[fuzqing](https://github.com/fuzqing)/**[WeChatShare](https://github.com/fuzqing/WeChatShare)** （原作者已不再维护，我针对最新的微信开放平台API做了修复）
+查看更详细的配置教程：[利用JS-SDK给Typecho微信分享链接带上自定义封面和简介](https://www.cnblogs.com/misterchaos/p/typecho-wechat-share-link.html)
 
 使用此插件自定义微信分享链接中的标题、描述、小图标和URL，包括**分享给朋友/分享到朋友圈**，效果如下：
 
@@ -106,3 +106,8 @@ The code is open source using GPL3 protocol. If you need to use the code, please
 - Yuchao Huang [@misterchaos](https://github.com/misterchaos/) - Maintainer
 - Fuzqing [@fuzqing](https://github.com/fuzqing) - Original Author
 
+## Thanks
+
+本插件的原始代码来源于：[fuzqing](https://github.com/fuzqing)/**[WeChatShare](https://github.com/fuzqing/WeChatShare)** 
+
+原作者已不再维护，我针对最新的微信开放平台API做了修复和升级
