@@ -25,6 +25,69 @@
 - 添加博客域名到`JS安全域名`中（设置 > 公众号设置 > 功能设置 > JS接口安全域名）
 - 配置完成后，可以在每篇博客的编辑页面配置`微信分享`，设置标题、描述、小图标和URL等信息
 
+## Pjax 
+
+如果你的网站使用了`pjax`技术，则需要进行下一步的设置，否则在页面发生跳转后插件将无法正常工作。
+
+### 1. 在你的`pjax-container`中添加以下代码
+
+下面代码的作用是在完成`pjax`刷新之后，替换成新的文章信息
+
+```php
+    <script>
+        var pageInfo = {
+            title: '<?php echo $this->title; ?>',
+            parameter_type: '<?php echo $this->parameter->type; ?>',
+            cid: '<?php echo $this->cid; ?>',
+            signature_url: '<?php
+                $http_type = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on')
+                    || (isset($_SERVER['HTTP_X_FORWARDED_PROTO'])
+                        && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')) ? 'https://' : 'http://';
+                $signature_url = $http_type . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+                // pjax
+                $signature_url = preg_replace('/\?_pjax=.*/','',$signature_url);
+                echo $signature_url; ?>'
+        };
+    </script>
+```
+
+### 2. 在你的`pjax`回调函数中添加以下代码
+
+下面代码的作用是在`pjax`刷新之后重新调用`wx.config`
+
+```javascript
+new WX_Custom_Share().init();
+```
+
+### 3. 我的`pjax`代码示例
+
+我的`pjax`代码如下：
+
+```javascript
+$(document).pjax('a[href*="<?php Helper::options()->siteUrl()?>"]:not(a[target="_blank"], a[no-pjax])', {
+        container: '#content',
+        fragment: '#content',
+        timeout: 8000
+}).on('pjax:send', function () {
+        // some animate code......
+}).on('pjax:complete',
+        function () {
+        // 微信分享插件
+        new WX_Custom_Share().init();
+});
+```
+
+其中设置了`#content`为pjax容器，因此我向该`div`中添加代码：
+
+```php
+<div id="content" class="app-content">
+    <script>
+        // 第一步中给出的代码
+    </script>
+```
+
+然后我在上面的`pjax`回调中添加了`new WX_Custom_Share().init();`，即可完成`pjax`的配置
+
 ## FAQ
 
 - Q：我暂时没有可用的微信公众号，怎么快速试用？
