@@ -5,13 +5,14 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
  *
  * @package WeChatShare
  * @author Yuchao Huang
- * @version 2.0
+ * @version 3.0
  * @link https://hellochaos.cn
  *
  *
- * version 2.0 at 2021-03-29
+ * version 3.0 at 2021-03-29
  * 支持最新微信开放平台API
- * 
+ * 兼容旧版JsApi
+ * 支持自定义链接描述
  */
 class WeChatShare_Plugin  implements Typecho_Plugin_Interface
 {
@@ -20,7 +21,7 @@ class WeChatShare_Plugin  implements Typecho_Plugin_Interface
      * 插件版本号
      * @var string
      */
-    const _VERSION = '2.0';
+    const _VERSION = '3.0';
     /**
      * 激活插件方法,如果激活失败,直接抛出异常
      *
